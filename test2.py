@@ -20,7 +20,7 @@ fireball_sprites = [fireball_spritesheet.parse_sprite('16-bit fire ball0.png'),
                     fireball_spritesheet.parse_sprite('16-bit fire ball3.png')]
 
 for i in range(len(fireball_sprites)):
-    fireball_sprites[i] = pygame.transform.scale(fireball_sprites[i], (https://go.codetogether.com/#/6fb6fb08-0d61-49fe-bdbe-b8da727778aa/zSMKMkCPOjBKqTmalUVEFu
+    fireball_sprites[i] = pygame.transform.scale(fireball_sprites[i], (
     int(fireball_sprites[i].get_width() * 10), int(fireball_sprites[i].get_height() * 10)))
 
 porte1_img = pygame.image.load('img/porte.png')
