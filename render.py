@@ -13,40 +13,41 @@ def gen_decor(screen,wall_img,wall_falling,WIDTH,HEIGHT):
     L=[wall_img,wall_falling]
     weight=[10,1]
 
-    y=2*32
-    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],90)
-    for i in range (HEIGHT // wall_img.get_height()):
-        screen.blit(randoom(L,weight), (0, y))
-        screen.blit(randoom(L,weight), (32, y))
-        y+=wall_img.get_height()
-    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],-90)
+    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],180)
+    x=0
+    y=HEIGHT-4*32
+    for i in range(WIDTH//wall_img.get_width()+1):
+        screen.blit(randoom(L,weight), (x, y))
+        screen.blit(randoom(L,weight), (x, y+32*2))
+        x+=32*2
+    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],-180)
+
     x=0
     y=0
     for i in range (WIDTH // wall_img.get_height() +1):
         screen.blit(randoom(L,weight), (x, y))
-        screen.blit(randoom(L,weight), (x, y+32))
-        x+=32
-    x=WIDTH-2*32
-    y=2*32
+        screen.blit(randoom(L,weight), (x, y+32*2))
+        x+=32*2
+    y=4*32
+    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],90)
+    for i in range (HEIGHT // wall_img.get_height()):
+        screen.blit(randoom(L,weight), (0, y))
+        screen.blit(randoom(L,weight), (32*2, y))
+        y+=wall_img.get_height()
+    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],-90)
+    x=WIDTH-4*32
+    y=4*32
     for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],-90)
     for i in range(HEIGHT//wall_img.get_width()+1):
         screen.blit(randoom(L,weight), (x, y))
-        screen.blit(randoom(L,weight), (x+32, y))
-        y+=32
+        screen.blit(randoom(L,weight), (x+32*2, y))
+        y+=32*2
     for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],90)
-    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],180)
-    x=0
-    y=HEIGHT-2*32
-    for i in range(WIDTH//wall_img.get_width()+1):
-        screen.blit(randoom(L,weight), (x, y))
-        screen.blit(randoom(L,weight), (x, y+32))
-        x+=32
-    for i in range (len(L)):L[i]=pygame.transform.rotate(L[i],-180)
 
 def render_hearts(heart,screen,woodenplank_small_img,WIDTH,HEIGHT,heart_sprites,heart_index):
     for i in range(heart+1):
-        screen.blit(woodenplank_small_img, (64+32*i, 0))
-        screen.blit(woodenplank_small_img, (64+32*i, 32))
+        screen.blit(woodenplank_small_img, (64*2+32*2*i, 0))
+        screen.blit(woodenplank_small_img, (64*2+32*2*i, 32*2))
     for i in range(heart):
         screen.blit(heart_sprites[heart_index],(64+32*i,0))
 
@@ -58,8 +59,16 @@ def renderDecoration_inside(DecorationsInside,display):
     for deco in DecorationsInside:
         display.blit(deco[0],(deco[1].x,deco[1].y))
 
-def renderplayer(screen,player_rect,player_img,player_index):
-    screen.blit(player_img[player_index], (player_rect.x- player_img[player_index].get_width()//4,player_rect.y-player_img[player_index].get_height()//4))
+def renderEntities(display,Entities,chaise_index):
+    for entity in Entities:
+        if entity.name=="chaise":
+            display.blit(entity.sprites[chaise_index],(entity.rect.x,entity.rect.y))
+
+def renderplayer(screen,player_rect,player_img_idle,player_img_moving,player_index,direction,moving):
+    if moving:img=player_img_moving[player_index]
+    else:img=player_img_idle[player_index]
+    if direction:img=pygame.transform.flip(img,True,False)
+    screen.blit(img, (player_rect.x-img.get_width()//5,player_rect.y))
 
 def render_fire_projectiles(Fire_Projectiles, fireball_sprites, index, display):
     for projectile in Fire_Projectiles:

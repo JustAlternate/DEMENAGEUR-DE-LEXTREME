@@ -2,7 +2,37 @@ import pygame
 from math import sqrt
 
 
-def movement(speed):
+def move_entity(Entities, player_rect):
+    for entity in Entities:
+        if entity.name != "porte":
+
+            #entity.rect.x
+            #entity.rect.y
+
+            #player_rect.x
+            #player_rect.y
+
+            #player_rect.width
+            #player_rect.height
+
+            #entity.rect.width
+            #entity.rect.height
+
+            if not entity.rect.x==player_rect.x:
+
+                if entity.rect.x < player_rect.x:
+                    entity.rect.x += 1
+                else:
+                    entity.rect.x -= 1
+
+            if not entity.rect.y==player_rect.y:
+
+                if entity.rect.y < player_rect.y:
+                    entity.rect.y += 1
+                else:
+                    entity.rect.y -= 1
+
+def movement(speed,direction):
 
     player_movement = [0, 0]
     if pygame.key.get_pressed()[pygame.K_LEFT] or pygame.key.get_pressed()[pygame.K_q]:
@@ -22,7 +52,17 @@ def movement(speed):
     else:
         moving_down = False
 
-    if speed < 2: speed = 2
+    moving=False
+    if moving_left:
+        direction=False
+        moving=True
+    if moving_right:
+        direction=True
+        moving=True
+    if moving_down or moving_up:
+        moving=True
+
+    if speed < 3: speed = 3
 
     if moving_right:
         player_movement[0] += speed
@@ -38,7 +78,7 @@ def movement(speed):
 
     player_movement = [round(player_movement[0], 2), round(player_movement[1], 2)]
 
-    return player_movement
+    return player_movement,direction,moving
 
 
 def collision_test(rect, Structs):  # FROM PYGAME DAFLUFFYPOTATO TUTORIALS
@@ -72,28 +112,6 @@ def move(rect, movement, Structs):  # FROM PYGAME DAFLUFFYPOTATO TUTORIALS
             collision_types['top'] = True
 
     return rect, collision_types
-
-def move_projectiles(projectile,vent):  # facing : 0 = left , 1 = up , 2 = right , 3 = down, 4 = diago gauche haute, 5 = diago droite haute, 6 = diago basse droite, 7 = diago basse gauche
-    if projectile.facing == 0:
-        projectile.x -= projectile.speed
-    elif projectile.facing == 1:
-        projectile.x += projectile.speed
-    elif projectile.facing == 2:
-        projectile.y -= projectile.speed
-    elif projectile.facing == 3:
-        projectile.y += projectile.speed
-    elif projectile.facing == 4:
-        projectile.x -= projectile.speed
-        projectile.y -= projectile.speed
-    elif projectile.facing == 5:
-        projectile.x += projectile.speed
-        projectile.y -= projectile.speed
-    elif projectile.facing == 6:
-        projectile.x -= projectile.speed
-        projectile.y += projectile.speed
-    elif projectile.facing == 7:
-        projectile.x += projectile.speed
-        projectile.y += projectile.speed
 
 
 def move_fire_projectiles(projectile,Fire_Projectiles):
