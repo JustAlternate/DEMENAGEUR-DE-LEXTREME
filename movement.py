@@ -6,31 +6,15 @@ def move_entity(Entities, player_rect):
     for entity in Entities:
         if entity.name != "porte":
 
-            #entity.rect.x
-            #entity.rect.y
+            if entity.rect.x < (player_rect.x - entity.rect.width+10):
+                entity.rect.x += 1
+            elif entity.rect.x > (player_rect.x + player_rect.width-10):
+                entity.rect.x -= 1
 
-            #player_rect.x
-            #player_rect.y
-
-            #player_rect.width
-            #player_rect.height
-
-            #entity.rect.width
-            #entity.rect.height
-
-            if not entity.rect.x==player_rect.x:
-
-                if entity.rect.x < player_rect.x:
-                    entity.rect.x += 1
-                else:
-                    entity.rect.x -= 1
-
-            if not entity.rect.y==player_rect.y:
-
-                if entity.rect.y < player_rect.y:
-                    entity.rect.y += 1
-                else:
-                    entity.rect.y -= 1
+            if entity.rect.y < (player_rect.y - entity.rect.height+10):
+                entity.rect.y += 1
+            elif entity.rect.y > (player_rect.y + player_rect.height-10):
+                entity.rect.y -= 1
 
 def movement(speed,direction):
 

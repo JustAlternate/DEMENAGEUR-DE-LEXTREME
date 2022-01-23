@@ -46,23 +46,36 @@ def gen_decor(screen,wall_img,wall_falling,WIDTH,HEIGHT):
 
 def render_hearts(heart,screen,woodenplank_small_img,WIDTH,HEIGHT,heart_sprites,heart_index):
     for i in range(heart+1):
-        screen.blit(woodenplank_small_img, (64*2+32*2*i, 0))
-        screen.blit(woodenplank_small_img, (64*2+32*2*i, 32*2))
+        screen.blit(woodenplank_small_img, (128+64*i, 0))
+        screen.blit(woodenplank_small_img, (128+64*i, 64))
     for i in range(heart):
-        screen.blit(heart_sprites[heart_index],(64+32*i,0))
+        screen.blit(heart_sprites[heart_index],(128+64*i,32))
 
 def renderDecoration(Decorations,screen):
     for deco in Decorations:
         screen.blit(deco[0], (deco[1].x, deco[1].y))
 
+def renderTableaux(Tableaux,screen,joconde_index,scream_index,candle_index):
+    for tableau in Tableaux:
+        if len(tableau[0])==8:
+            screen.blit(tableau[0][scream_index],(tableau[1].x,tableau[1].y))
+        if len(tableau[0])==10:
+            screen.blit(tableau[0][joconde_index],(tableau[1].x,tableau[1].y))
+        if len(tableau[0])==2:
+            screen.blit(tableau[0][candle_index],(tableau[1].x+50,tableau[1].y-50))
+
 def renderDecoration_inside(DecorationsInside,display):
     for deco in DecorationsInside:
         display.blit(deco[0],(deco[1].x,deco[1].y))
 
-def renderEntities(display,Entities,chaise_index):
+def renderEntities(display,Entities,chaise_index,table_index,tv_index):
     for entity in Entities:
         if entity.name=="chaise":
             display.blit(entity.sprites[chaise_index],(entity.rect.x,entity.rect.y))
+        if entity.name=="table":
+            display.blit(entity.sprites[table_index],(entity.rect.x,entity.rect.y))
+        if entity.name=="tv":
+            display.blit(entity.sprites[tv_index],(entity.rect.x,entity.rect.y))
 
 def renderplayer(screen,player_rect,player_img_idle,player_img_moving,player_index,direction,moving):
     if moving:img=player_img_moving[player_index]
